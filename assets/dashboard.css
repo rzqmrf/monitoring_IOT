@@ -1,13 +1,153 @@
 /* ==================================== */
 /* 1. BASE LAYOUT & TYPOGRAPHY */
 /* ==================================== */
-body {
+body 
+
+{
     font-family: 'Instrument Sans', 'Poppins', 'Segoe UI', Arial, sans-serif;
     background: #F7F9FC; /* Background yang bersih */
     margin: 0;
     padding: 0;
     color: #222; /* Teks default hitam/abu-abu tua */
 }
+/* Mode gelap */
+body.dark-mode .judul-dashboard {
+  color: #00b4d8;
+}
+
+/* ======== Mode Gelap & Tombol Toggle ======== */
+.mode-toggle {
+  position: fixed;
+  top: 18px;
+  right: 18px;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  background-color: #00b4d8;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  z-index: 1000;
+  transition: background 0.3s;
+}
+
+.mode-toggle:hover {
+  background-color: #0583bd;
+}
+
+/* 🌙 Mode Gelap */
+body.dark-mode {
+  background-color: #1e1e2f;
+  color: #f1f1f1;
+}
+
+body.dark-mode .card {
+  background-color: #2a2a3d;
+  color: #f1f1f1;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+}
+
+body.dark-mode table {
+  background-color: #2a2a3d;
+  color: #f1f1f1;
+}
+
+body.dark-mode th {
+  background-color: #35354b;
+}
+
+body.dark-mode td {
+  background-color: #2a2a3d;
+}
+/* 🌙 Mode Gelap Tambahan */
+body.dark-mode .info-card {
+  background: #2a2a3d;
+  color: #0b0000;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .info-label {
+  color: #ffffff; /* warna teks label di info card */
+}
+
+body.dark-mode .info-value {
+  color: #ffffff; /* teks utama putih */
+}
+
+/* 🌙 Mode Gelap untuk Tabel Riwayat */
+body.dark-mode .riwayat-card table {
+  background: #2a2a3d;
+  color: #f1f1f1;
+  border-collapse: collapse;
+}
+
+body.dark-mode .riwayat-card th {
+  background: #35354b;
+  color: #fff;
+  border-bottom: 2px solid #4b4b68;
+}
+
+body.dark-mode .riwayat-card td {
+  background: #2a2a3d;
+  color: #f1f1f1;
+  border-top: 1px solid #4b4b68;
+}
+
+body.dark-mode .riwayat-card tr:nth-child(even) td {
+  background: #33334a;
+}
+
+body.dark-mode .riwayat-card tr:hover td {
+  background: #3f3f5c;
+}
+
+body.dark-mode .riwayat-no,
+body.dark-mode .riwayat-waktu {
+  background: #2a2a3d;
+  color: #230707;
+}
+
+body.dark-mode .dashboard h1 {
+  color: #00b4d8;
+  text-shadow: 0 2px 8px rgba(165, 180, 252, 0.3);
+}
+/* 🌙 Dark Mode Override — Paksa tabel riwayat ikut gelap */
+body.dark-mode table td,
+body.dark-mode table th {
+  background-color: #2a2a3d !important;
+  color: #f1f1f1 !important;
+  border-color: #4b4b68 !important;
+}
+/* Mode terang */
+.judul-dashboard {
+  color: #6a11cb;        /* warna ungu terang */
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+/* Mode gelap */
+body.dark-mode .judul-dashboard {
+  color: #ffffff;       /* warna putih saat mode gelap */
+}
+
+body.dark-mode table tr:nth-child(even) td {
+  background-color: #33334a !important;
+}
+
+body.dark-mode table tr:hover td {
+  background-color: #3f3f5c !important;
+}
+
+body.dark-mode table th {
+  background-color: #35354b !important;
+  font-weight: 700;
+}
+
+body.dark-mode .p-hijau { color: #4ade80; }
+body.dark-mode .p-kuning { color: #facc15; }
+body.dark-mode .p-merah { color: #ef4444; }
 
 .dashboard {
     padding: 40px 10px 40px 10px; /* Tambah padding horizontal untuk ponsel */
@@ -18,7 +158,7 @@ body {
     text-align: center;
     margin-top: 0;
     margin-bottom: 28px;
-    color: #4f46e5; /* Warna Biru Utama */
+    color: #00b4d8; /* Warna Biru Utama */
     font-size: 2.7rem;
     letter-spacing: 1.5px;
     font-weight: 800;
@@ -94,7 +234,7 @@ body {
 
 .info-label {
     font-size: 20px;
-    color: #4f46e5;
+    color: #00b4d8;
     font-weight: 600;
 }
 
@@ -131,7 +271,7 @@ body {
 }
 
 .riwayat-card th {
-    background: #4f46e5; /* Gunakan warna solid, bukan gradient untuk performa lebih baik */
+    background: #00b4d8; /* Gunakan warna solid, bukan gradient untuk performa lebih baik */
     color: #fff;
     font-weight: 700;
     font-size: 16px;

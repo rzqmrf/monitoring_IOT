@@ -1,132 +1,265 @@
-body,
-html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    min-height: 100vh;
-    font-family: 'Poppins', sans-serif;
-    /* BACKGROUND UTAMA DITETAPKAN DI SINI (body/html) */
-    background: linear-gradient(135deg, #4f46e5 20%, #6a11cb 100%); 
+/* ===============================
+   ðŸŒŠ STYLE UTAMA LANDING PAGE
+   Monitoring Toren - by Dinik
+================================*/
+
+/* FONT & RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
-/* HAPUS PROPERTI BACKGROUND PADA .login-bg */
-/* Kelas ini HANYA digunakan untuk mengatur Flexbox agar konten di tengah */
-.login-bg {
-    min-height: 100vh;
-    width: 100vw;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+body {
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(180deg, #86cced, #bde9ff);
 }
 
-.login-card {
-    background: #fff;
-    border-radius: 24px;
-    box-shadow: 0 8px 32px rgba(80, 0, 208, 0.15);
-    padding: 52px;
-    width: 380px;
-    max-width: 95vw;
-    display: flex;
+/* ===============================
+   LOGO - PENYESUAIAN AKHIR
+================================*/
+.logo {
+  position: absolute; /* Tetap di kiri atas */ /* Geser lebih ke bawah */
+  left: 120px; /* Geser lebih ke kanan */
+  display: flex;
+  align-items: center;
+  margin-bottom: 70px;
+}
+
+.logo img {
+  width: 200px; /* Perbesar ukuran logo lebih lanjut */
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Efek transisi untuk hover */
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  font-size: 1rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: #0078b7;
+  transition: 0.3s;
+}
+
+nav a:hover {
+  color: #003b5c;
+}
+
+/* ===============================
+   HERO SECTION
+================================*/
+.hero {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5rem;
+  height: calc(100vh - 70px);
+  overflow: hidden;
+}
+
+.text {
+  flex: 1;
+  max-width: 600px;
+  z-index: 1;
+}
+
+.text h2 {
+  font-size: 3rem;
+  color: #004f77;
+  margin-bottom: 3rem;
+  width: 100%;
+  margin-left: 50px;
+  padding-top: 100px;
+}
+
+.text p {
+  font-size: 1.2rem;
+  color: #006c9e;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+  margin-left:50px;
+  padding-top: 10px;
+}
+
+.btn {
+  display: inline-block;
+  background: #09a7f5;
+  color: white;
+  padding: 0.9rem 2rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: 0.3s;
+  margin-left: 50px;
+}
+
+.btn:hover {
+  background: #003b5c;
+}
+
+/* ===============================
+   DEKORASI TORREN & GEARS
+================================*/
+.decoration {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 60px;
+  padding-right: 120px;
+  overflow: hidden;
+  z-index: 0;
+  margin-right: 50px;
+}
+
+.toren {
+  width: 200px;
+  height: 350px;
+  background: linear-gradient(180deg, #bde9ff 10%, #dff6ff 90%);
+  border: 5px solid #0078b7;
+  border-radius: 40px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 120, 183, 0.25);
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.air {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 70%;
+  background: linear-gradient(180deg, #00bfff, #0078b7);
+  border-radius: 0 0 18px 18px;
+  animation: wave 2s ease-in-out infinite;
+}
+
+@keyframes wave {
+  0%, 100% { height: 68%; }
+  50% { height: 75%; }
+}
+
+.sensor {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 55px;
+  height: 12px;
+  background: #ff6961;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(255, 105, 97, 0.8);
+}
+
+.level-indicator {
+  position: absolute;
+  right: -25px;
+  bottom: 0;
+  width: 10px;
+  height: 100%;
+  background: #dff6ff;
+  border: 2px solid #0078b7;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.level-fill {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 70%;
+  background: linear-gradient(180deg, #00bfff, #0078b7);
+  transition: height 1s ease-in-out;
+}
+
+/* ===============================
+   GEAR - PENINGKATAN VISUAL
+================================*/
+.gear {
+  width: 120px; /* Perbesar ukuran gear */
+  height: 120px;
+  background: conic-gradient(from 0deg, #1e90ff 0deg 30deg, transparent 30deg 60deg, #1e90ff 60deg 90deg);
+  mask: radial-gradient(circle at center, transparent 35%, black 36%);
+  border-radius: 50%;
+  animation: spinGear 8s linear infinite; /* Rotasi lebih halus */
+  filter: drop-shadow(0 0 20px rgba(30, 144, 255, 0.7)); /* Tambahkan efek bayangan */
+  border: 2px solid #0078b7; /* Tambahkan border untuk detail */
+}
+
+@keyframes spinGear {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* â˜ï¸ Awan */
+.cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  width: 120px;
+  height: 60px;
+  top: 10%;
+  filter: blur(2px);
+  animation: cloudMove 40s linear infinite;
+}
+
+.cloud1 { left: -150px; animation-delay: 0s; }
+.cloud2 { left: -300px; top: 25%; width: 160px; animation-delay: 10s; }
+
+@keyframes cloudMove {
+  from { transform: translateX(0); }
+  to { transform: translateX(120vw); }
+}
+
+/* ===============================
+   RESPONSIVE DESIGN
+================================*/
+@media (max-width: 768px) {
+  header {
+    padding: 0.8rem 1rem;
+  }
+
+  .hero {
     flex-direction: column;
-    align-items: stretch;
-    min-height: 370px;
-}
+    padding: 2rem;
+    height: auto;
+  }
 
-.login-title {
-    font-family: 'Poppins', sans-serif;
-    font-size: 24px;
-    font-weight: 700;
-    color: #4f46e5;
+  .text {
     text-align: center;
-    margin-bottom: 40px;
-    margin-top: 10px;
-}
+  }
 
-.login-form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    justify-content: center;
-    flex: 1;
-}
-
-.login-input {
-    width: 100%;
-    height: 72px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    padding: 14px 14px;
-    font-size: 15px;
-    font-family: 'Poppins', sans-serif;
-    outline: rgba(79, 70, 229, 0.10);
-    transition: border 0.3s, box-shadow 0.3s;
-    background: #fff;
-    box-sizing: border-box;
-    color: #222;
-}
-
-.login-input::placeholder {
-    color: #999;
-    opacity: 1;
-}
-
-.login-input:focus {
-    border: 1px solid #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
-}
-
-.login-btn {
-    width: 100%;
-    height: 44px;
-    border-radius: 25px;
-    background: linear-gradient(90deg, #4f46e5, #6a11cb 100%); 
-    color: #fff;
-    font-family: 'Poppins', sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    border: none;
-    box-shadow: 0 3px 12px rgba(106, 17, 203, 0.3);
-    cursor: pointer;
-    margin-top: 28px;
-    transition: background 0.3s;
-}
-
-.login-btn:hover {
-    background: linear-gradient(90deg, #6258ea, #7a22dc);
-}
-
-.register-link {
-    margin-top: 30px;
-    text-align: center;
-    font-size: 19px;
-    color: #555;
-    font-family: 'Poppins', sans-serif;
-}
-
-.register-link a {
-    color: #4f46e5;
-    font-weight: 700;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.register-link a:hover {
-    color: #6a11cb;
-    text-decoration: underline;
 }
 
 @media (max-width: 480px) {
-    .login-card {
-        width: 90vw;
-        padding: 22px 8px;
-    }
-}
+  .btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+  }
 
-.error {
-    color: #ef4444;
-    text-align: center;
-    margin-bottom: 10px;
-    font-size: 14px;
+  .text h2 {
+    font-size: 2rem;
+  }
+
+  .text p {
+    font-size: 0.9rem;
+  }
+
+  .logo img {
+    width: 60px;
+  }
 }

@@ -6,25 +6,24 @@ html {
     width: 100vw;
     min-height: 100vh;
     font-family: 'Poppins', sans-serif;
-    /* BACKGROUND YANG KONSISTEN DENGAN GRADASI DASHBOARD */
-    background: linear-gradient(135deg, #4f46e5 20%, #6a11cb 100%); 
+    /* BACKGROUND UTAMA DISESUAIKAN DENGAN LANDING */
+    background: linear-gradient(135deg, #ffffff 20%, #bfc1c2 100%);
 }
 
-/* HILANGKAN PROPERTI BACKGROUND PADA .login-bg! */
-/* Karena sudah ada di body/html, .login-bg hanya perlu mengatur layout */
+/* POSISI TETAP */
 .login-bg {
     min-height: 100vh;
     width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Hapus properti background di sini agar yang di body/html terlihat */
 }
 
+/* KARTU LOGIN */
 .login-card {
-    background: #fff;
+    background: #ffffff;
     border-radius: 24px;
-    box-shadow: 0 8px 32px rgba(80, 0, 208, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 119, 182, 0.15);
     padding: 52px;
     width: 380px;
     max-width: 95vw;
@@ -34,16 +33,18 @@ html {
     min-height: 370px;
 }
 
+/* JUDUL */
 .login-title {
     font-family: 'Poppins', sans-serif;
     font-size: 24px;
     font-weight: 700;
-    color: #4f46e5;
+    color: #00b4d8;
     text-align: center;
     margin-bottom: 40px;
     margin-top: 10px;
 }
 
+/* FORM LOGIN */
 .login-form {
     width: 100%;
     display: flex;
@@ -53,6 +54,7 @@ html {
     flex: 1;
 }
 
+/* INPUT */
 .login-input {
     width: 100%;
     height: 72px;
@@ -61,7 +63,7 @@ html {
     padding: 14px 14px;
     font-size: 15px;
     font-family: 'Poppins', sans-serif;
-    outline: rgba(79, 70, 229, 0.10);
+    outline: rgba(0, 119, 182, 0.10);
     transition: border 0.3s, box-shadow 0.3s;
     background: #fff;
     box-sizing: border-box;
@@ -69,35 +71,37 @@ html {
 }
 
 .login-input::placeholder {
-    color: #999;
+    color: #00b4d8;
     opacity: 1;
 }
 
 .login-input:focus {
-    border: 1px solid #4f46e5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+    border: 1px solid #00b4d8;
+    box-shadow: 0 0 0 3px rgba(0, 180, 216, 0.25);
 }
 
+/* TOMBOL LOGIN */
 .login-btn {
     width: 100%;
     height: 44px;
     border-radius: 25px;
-    background: linear-gradient(90deg, #4f46e5, #6a11cb 100%); 
+    background: linear-gradient(90deg, #00b4d8, #0077b6 100%);
     color: #fff;
     font-family: 'Poppins', sans-serif;
     font-size: 15px;
     font-weight: 700;
     border: none;
-    box-shadow: 0 3px 12px rgba(106, 17, 203, 0.3);
+    box-shadow: 0 3px 12px rgba(0, 180, 216, 0.3);
     cursor: pointer;
     margin-top: 28px;
     transition: background 0.3s;
 }
 
 .login-btn:hover {
-    background: linear-gradient(90deg, #6258ea, #7a22dc);
+    background: linear-gradient(90deg, #48cae4, #0096c7);
 }
 
+/* LINK DAFTAR */
 .register-link {
     margin-top: 30px;
     text-align: center;
@@ -107,17 +111,18 @@ html {
 }
 
 .register-link a {
-    color: #4f46e5;
+    color: #00b4d8;
     font-weight: 700;
     text-decoration: none;
     transition: color 0.2s;
 }
 
 .register-link a:hover {
-    color: #6a11cb;
+    color: #0077b6;
     text-decoration: underline;
 }
 
+/* RESPONSIVE */
 @media (max-width: 480px) {
     .login-card {
         width: 90vw;
@@ -125,6 +130,7 @@ html {
     }
 }
 
+/* ERROR TEXT */
 .error {
     color: #ef4444;
     text-align: center;

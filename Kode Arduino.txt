@@ -1,0 +1,161 @@
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+#include <WiFiClientSecure.h>
+
+// WiFi
+const char* ssid = " ";
+const char* password = " ";
+
+// API
+const char* apiUrl   = "https://IP laptop kamu/monitoring_toren/routes/api.php";
+const char* configUrl = "https://IP laptop kamu/monitoring_toren/routes/config.php";
+
+// Pin Ultrasonik
+#define TRIG D1
+#define ECHO D2
+
+// Flow sensor
+#define FLOW_SENSOR_PIN D5
+volatile int pulseCount;
+float calibrationFactor = 450.0; // pulsa per liter
+float totalLitres = 0; // total pemakaian
+
+// Variabel
+long duration;
+float distance;
+float tinggi_toren = 0;
+float volume_penuh = 0;
+
+WiFiClientSecure client;
+
+void IRAM_ATTR pulseCounter() {
+  pulseCount++;
+}
+
+void setup() {
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+
+  Serial.print("Menghubungkan ke WiFi");
+  int wifiTimeout = 0;
+  while (WiFi.status() != WL_CONNECTED && wifiTimeout < 40) {
+    delay(500);
+    Serial.print(".");
+    wifiTimeout++;
+  }
+
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println("\nWiFi Tersambung!");
+    Serial.print("IP Address: ");
+    Serial.println(WiFi.localIP());
+  } else {
+    Serial.println("\nGagal koneksi WiFi!");
+  }
+
+  client.setInsecure();
+
+  // Ultrasonik
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+
+  // Flow sensor
+  pinMode(FLOW_SENSOR_PIN, INPUT_PULLUP);
+  pulseCount = 0;
+  attachInterrupt(digitalPinToInterrupt(FLOW_SENSOR_PIN), pulseCounter, FALLING);
+
+  // Ambil config
+  ambilConfig();
+}
+
+void loop() {
+  bacaSensorDanKirim();
+  delay(3000);
+}
+
+void ambilConfig() {
+  if (WiFi.status() == WL_CONNECTED) {
+    HTTPClient http;
+    if (http.begin(client, configUrl)) {
+      int httpCode = http.GET();
+
+      if (httpCode == 200) {
+        String payload = http.getString();
+        Serial.println("Config diterima: " + payload);
+
+        int tIndex = payload.indexOf("\"tinggi\":") + 9;
+        int vIndex = payload.indexOf("\"volume\":") + 9;
+        int komaIndex = payload.indexOf(",", tIndex);
+
+        tinggi_toren = payload.substring(tIndex, komaIndex).toFloat();
+        volume_penuh = payload.substring(vIndex, payload.indexOf("}", vIndex)).toFloat();
+
+        Serial.print("Tinggi Toren: "); Serial.println(tinggi_toren);
+        Serial.print("Volume Penuh: "); Serial.println(volume_penuh);
+      } else {
+        Serial.printf("Gagal ambil config, code: %d\n", httpCode);
+      }
+      http.end();
+    }
+  }
+}
+
+void bacaSensorDanKirim() {
+  // ====== Hitung Flow Sensor ======
+  detachInterrupt(digitalPinToInterrupt(FLOW_SENSOR_PIN));
+  float flowLitres = (pulseCount / calibrationFactor);
+  totalLitres += flowLitres;
+  pulseCount = 0;
+  attachInterrupt(digitalPinToInterrupt(FLOW_SENSOR_PIN), pulseCounter, FALLING);
+
+  // ====== Ultrasonik ======
+  digitalWrite(TRIG, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+
+  duration = pulseIn(ECHO, HIGH, 30000);
+  if (duration == 0) {
+    Serial.println("Sensor error: tidak ada echo!");
+    return;
+  }
+
+  distance = duration * 0.034 / 2;
+  float tinggi_air = tinggi_toren - distance;
+  if (tinggi_air < 0) tinggi_air = 0;
+  if (tinggi_air > tinggi_toren) tinggi_air = tinggi_toren;
+
+  float persen = (tinggi_air / tinggi_toren) * 100.0;
+  float volume = (persen / 100.0) * volume_penuh;
+
+  // ====== Debug (TANPA biaya) ======
+  Serial.print("Tinggi Air: "); Serial.print(tinggi_air); Serial.println(" cm");
+  Serial.print("Volume Toren: "); Serial.print(volume); Serial.println(" L");
+  Serial.print("Persen: "); Serial.print(persen); Serial.println(" %");
+  Serial.print("Total Pemakaian: "); Serial.print(totalLitres); Serial.println(" L");
+
+  // ====== Kirim ke API ======
+  if (WiFi.status() == WL_CONNECTED) {
+    HTTPClient http;
+    if (http.begin(client, apiUrl)) {
+      http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+
+      String postData = "tinggi_air=" + String(tinggi_air, 1) +
+                        "&volume_air=" + String(volume, 1) +
+                        "&persen_air=" + String(persen, 1) +
+                        "&total_pemakaian=" + String(totalLitres, 2);
+
+      int httpCode = http.POST(postData);
+
+      if (httpCode > 0) {
+        String response = http.getString();
+        Serial.println("Response API: " + response);
+      } else {
+        Serial.printf("Gagal kirim ke API, error: %s\n", http.errorToString(httpCode).c_str());
+      }
+      http.end();
+    }
+  } else {
+    Serial.println("WiFi tidak terhubung, data tidak dikirim.");
+  }
+}

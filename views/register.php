@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             mysqli_query($conn, "INSERT INTO users (username, password) VALUES ('$username', '$password')");
             $_SESSION['register_success'] = true;
-            header("Location: index.php");
+            header("Location: login.php");
             exit;
         }
     }
@@ -31,8 +31,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/register.css">
+    <link rel="stylesheet" href="../assets/login.css">
 </head>
 
 <body>
@@ -47,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <button type="submit" class="login-btn">REGISTER</button>
                 </form>
             </div>
-            <div class="register-link">Sudah punya akun? <a href="index.php">LOGIN</a></div>
+            <div class="register-link">Sudah punya akun? <a href="login.php">Login</a></div>
         </div>
     </div>
 </body>

@@ -1,0 +1,4 @@
+*KODE ARDUINO*
+
+1. Pada kode Arduino sesuaikan wifi dan passwordnya
+2. sesuaikan juga dengan IP laptop kamu

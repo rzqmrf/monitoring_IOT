@@ -3,6 +3,11 @@ error_reporting(E_ERROR | E_PARSE);
 session_start();
 include "../routes/db.php";
 
+if (isset($_SESSION['user'])) {
+    header("Location: dashboard.php");
+    exit;
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -12,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['user'] = $user['username'];
-        header("Location: dashboard.php");
+        header("Location:dashboard.php");
         exit;
     } else {
         $error = "Username atau password salah!";
@@ -26,8 +31,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="icon" href="../assets/favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/index.css">
+    <link rel="stylesheet" href="../assets/login.css">
 </head>
 
 <body>
@@ -46,3 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="register-link">Belum punya akun? <a href="register.php">Registrasi</a></div>
             </div>
         </div>
+    </div>
+</body>
+
+</html>
