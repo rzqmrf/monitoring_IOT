@@ -21,10 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // --- Notifikasi Telegram ---
         $token = "8239880836:AAEJ8pzj7lQI8cSsuM-e48hMCDvN-Y3-O3s"; // ganti dengan token bot kamu
         $list_chat_ids = [
-            "6897736925", // rozaq 2
-            "5804929016", // rozaq 1
-            "1510161527", // dini
-            "6779481253", // afe
+            "ID_Tele_Kamu", // rozaq 2
         ];
 
         $pesan = "";
