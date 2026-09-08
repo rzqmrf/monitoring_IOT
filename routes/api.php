@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt->execute()) {
 
         // --- Notifikasi Telegram ---
-        $token = "8239880836:AAEJ8pzj7lQI8cSsuM-e48hMCDvN-Y3-O3s"; // ganti dengan token bot kamu
+        $token = "token_telegram"; // ganti dengan token bot kamu
         $list_chat_ids = [
             "ID_Tele_Kamu", // rozaq 2
         ];
